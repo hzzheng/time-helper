@@ -1,9 +1,9 @@
 const Koa = require("koa");
+const router = require("./server/routes");
 
 const app = new Koa();
 
-app.use(ctx => {
-  ctx.body = "hello, world";
-});
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 app.listen(4000);
