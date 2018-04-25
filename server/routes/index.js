@@ -1,15 +1,15 @@
-const Router = require("koa-router");
+const Router = require('koa-router')
 
 const router = new Router({
-  prefix: "/api"
-});
+  prefix: '/api',
+})
 
-router.get("/:type/tasks", ctx => {
-  ctx.body = `${ctx.params.type}/tasklist`;
-});
+router.get('/:type/tasks', ctx => {
+  ctx.body = `${ctx.params.type}/tasklist`
+})
 
-router.get("/:type/task/:id", ctx => {
-  ctx.body = `${ctx.params.type}/task/${ctx.params.id}`;
-});
+router.get('/:type/task/:id', ctx => {
+  ctx.body = `${ctx.params.type}/task/${ctx.params.id}`
+})
 
-module.exports = router;
+module.exports = router
