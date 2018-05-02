@@ -15,6 +15,8 @@ router.post('/pull', ctx => {
       }
       return
     }
+    // eslint-disable-next-line
+    console.log(stdout)
     ctx.body = {
       success: true,
     }
