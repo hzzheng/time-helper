@@ -1,8 +1,26 @@
+const { exec } = require('child_process')
 const Router = require('koa-router')
 const { register } = require('../controllers/user')
 
 const router = new Router({
-  prefix: '/api',
+  prefix: '/wx/api',
+})
+
+router.post('/pull', ctx => {
+  exec('cd ../.. & git pull origin master', (error, stdout) => {
+    if (error) {
+      ctx.body = {
+        success: false,
+        error: error,
+      }
+      return
+    }
+    // eslint-disable-next-line
+    console.log(stdout)
+    ctx.body = {
+      success: true,
+    }
+  })
 })
 
 router.get('/user', register)

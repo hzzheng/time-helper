@@ -1,8 +1,8 @@
 const Koa = require('koa')
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const router = require('./server/routes')
 
-mongoose.connect('mongodb://localhost/blog')
+// mongoose.connect('mongodb://localhost/blog')
 
 const app = new Koa()
 
