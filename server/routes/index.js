@@ -27,6 +27,12 @@ router.post('/pull', async (ctx, next) => {
   }
 })
 
+router.get('/checksignature', ctx => {
+  // const { signature, timestamp, nonce } = ctx.query
+
+  ctx.body = 'echostr'
+})
+
 router.get('/user', register)
 
 router.get('/:type/tasks', ctx => {
