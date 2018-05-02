@@ -6,21 +6,25 @@ const router = new Router({
   prefix: '/wx/api',
 })
 
-router.post('/pull', ctx => {
-  exec('cd ../.. & git pull origin master', (error, stdout) => {
-    if (error) {
-      ctx.body = {
-        success: false,
-        error: error,
+router.post('/pull', async (ctx, next) => {
+  const fetchCode = new Promise((resolve, reject) => {
+    exec('cd ../.. & git pull origin master', (error, stdout) => {
+      if (error) {
+        reject(error)
+        return
       }
-      return
-    }
-    // eslint-disable-next-line
-    console.log(stdout)
+      resolve(stdout)
+    })
+  })
+
+  try {
+    await fetchCode
     ctx.body = {
       success: true,
     }
-  })
+  } catch (err) {
+    await next(err)
+  }
 })
 
 router.get('/user', register)
