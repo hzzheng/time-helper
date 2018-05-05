@@ -29,6 +29,14 @@ router.put('/:username/:type/target', async ctx => {
 })
 
 /**
+ * 健康检查
+ */
+router.get('/health', async ctx => {
+  // TODO
+  ctx.body = 'ok'
+})
+
+/**
  * 自动部署
  */
 router.post('/post-receive', autoDeploy)
