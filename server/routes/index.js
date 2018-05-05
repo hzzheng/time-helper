@@ -7,6 +7,21 @@ const router = new Router({
 })
 
 /**
+ * 用户注册
+ */
+router.post('/user', addUser)
+
+/**
+ * 获取目标
+ */
+router.get('/:username/targets', fetchTargets)
+
+/**
+ * 添加目标
+ */
+router.post('/:username/:type/target', addTarget)
+
+/**
  * 自动部署
  */
 router.post('/post-receive', async (ctx, next) => {
@@ -29,29 +44,5 @@ router.post('/post-receive', async (ctx, next) => {
     await next(err)
   }
 })
-
-/**
- * 微信认证
- */
-router.get('/checksignature', ctx => {
-  // const { signature, timestamp, nonce } = ctx.query
-
-  ctx.body = 'echostr'
-})
-
-/**
- * 用户注册
- */
-router.post('/user', addUser)
-
-/**
- * 获取目标
- */
-router.get('/:username/targets', fetchTargets)
-
-/**
- * 添加目标
- */
-router.post('/:username/:type/target', addTarget)
 
 module.exports = router
