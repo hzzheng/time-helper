@@ -21,6 +21,14 @@ router.get('/:username/targets', fetchTargets)
 router.post('/:username/:type/target', addTarget)
 
 /**
+ * 修改目标
+ */
+router.put('/:username/:type/target', async ctx => {
+  // TODO
+  ctx.body = 'update successly'
+})
+
+/**
  * 自动部署
  */
 router.post('/post-receive', autoDeploy)
