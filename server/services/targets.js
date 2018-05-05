@@ -8,4 +8,9 @@ module.exports = {
 
     await targets.save()
   },
+  async findTargets(username) {
+    const targets = await Targets.find({ username })
+
+    return targets
+  },
 }

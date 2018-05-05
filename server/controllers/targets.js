@@ -1,5 +1,4 @@
-const Target = require('../models/targets')
-const { initUserAndTargets } = require('../services/targets')
+const { initUserAndTargets, findTargets } = require('../services/targets')
 
 module.exports = {
   async addUser(ctx) {
@@ -22,7 +21,7 @@ module.exports = {
     const { username } = ctx.params
 
     try {
-      const targets = await Target.find({ username })
+      const targets = await findTargets(username)
       ctx.body = {
         success: true,
         result: targets,
