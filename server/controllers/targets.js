@@ -59,7 +59,7 @@ module.exports = {
 
   async autoDeploy(ctx) {
     const fetchCode = new Promise((resolve, reject) => {
-      exec('cd ../.. & git pull origin master & pm2 restart app', (error, stdout) => {
+      exec('cd ../.. & git pull origin master', (error, stdout) => {
         if (error) {
           return reject(error)
         }
