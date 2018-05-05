@@ -1,11 +1,14 @@
-const { exec } = require('child_process')
 const Router = require('koa-router')
-const { register } = require('../controllers/user')
+const { exec } = require('child_process')
+const { addUser } = require('../controllers/targets')
 
 const router = new Router({
   prefix: '/wx/api',
 })
 
+/**
+ * 自动部署
+ */
 router.post('/pull', async (ctx, next) => {
   const fetchCode = new Promise((resolve, reject) => {
     exec('cd ../.. & git pull origin master', (error, stdout) => {
@@ -27,20 +30,23 @@ router.post('/pull', async (ctx, next) => {
   }
 })
 
+/**
+ * 微信认证
+ */
 router.get('/checksignature', ctx => {
   // const { signature, timestamp, nonce } = ctx.query
 
   ctx.body = 'echostr'
 })
 
-router.get('/user', register)
+/**
+ * 用户注册
+ */
+router.post('/user', addUser)
 
-router.get('/:type/tasks', ctx => {
-  ctx.body = `${ctx.params.type}/tasklist`
-})
-
-router.get('/:type/task/:id', ctx => {
-  ctx.body = `${ctx.params.type}/task/${ctx.params.id}`
-})
+/**
+ * 获取目标
+ */
+// router.get('/:username/targets', register)
 
 module.exports = router
