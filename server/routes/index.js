@@ -9,7 +9,7 @@ const router = new Router({
 /**
  * 自动部署
  */
-router.post('/pull', async (ctx, next) => {
+router.post('/post-receive', async (ctx, next) => {
   const fetchCode = new Promise((resolve, reject) => {
     exec('cd ../.. & git pull origin master & pm2 restart app', (error, stdout) => {
       if (error) {
