@@ -1,4 +1,4 @@
-const { exec } = require('child_process')
+const { exec, execSync } = require('child_process')
 const { initUserAndTargets, findTargets, addNewTarget } = require('../services/targets')
 
 module.exports = {
@@ -72,6 +72,9 @@ module.exports = {
       ctx.body = {
         success: true,
       }
+      process.nextTick(() => {
+        execSync('pm2 restart app')
+      })
     } catch (err) {
       ctx.body = {
         success: false,
