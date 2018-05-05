@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 const { exec } = require('child_process')
-const { addUser } = require('../controllers/targets')
+const { addUser, fetchTargets } = require('../controllers/targets')
 
 const router = new Router({
   prefix: '/wx/api',
@@ -11,7 +11,7 @@ const router = new Router({
  */
 router.post('/pull', async (ctx, next) => {
   const fetchCode = new Promise((resolve, reject) => {
-    exec('cd ../.. & git pull origin master', (error, stdout) => {
+    exec('cd ../.. & git pull origin master & pm2 restart app', (error, stdout) => {
       if (error) {
         reject(error)
         return
@@ -47,6 +47,6 @@ router.post('/user', addUser)
 /**
  * 获取目标
  */
-// router.get('/:username/targets', register)
+router.get('/:username/targets', fetchTargets)
 
 module.exports = router
