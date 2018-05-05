@@ -1,3 +1,4 @@
+const { exec } = require('child_process')
 const { initUserAndTargets, findTargets, addNewTarget } = require('../services/targets')
 
 module.exports = {
@@ -52,6 +53,29 @@ module.exports = {
       ctx.body = {
         success: false,
         message: '添加目标失败',
+      }
+    }
+  },
+
+  async autoDeploy(ctx) {
+    const fetchCode = new Promise((resolve, reject) => {
+      exec('cd ../.. & git pull origin master & pm2 restart app', (error, stdout) => {
+        if (error) {
+          reject(error)
+          return
+        }
+        resolve(stdout)
+      })
+    })
+
+    try {
+      await fetchCode
+      ctx.body = {
+        success: true,
+      }
+    } catch (err) {
+      ctx.body = {
+        success: false,
       }
     }
   },
