@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 const { exec } = require('child_process')
-const { addUser, fetchTargets } = require('../controllers/targets')
+const { addUser, fetchTargets, addTarget } = require('../controllers/targets')
 
 const router = new Router({
   prefix: '/wx/api',
@@ -48,5 +48,10 @@ router.post('/user', addUser)
  * 获取目标
  */
 router.get('/:username/targets', fetchTargets)
+
+/**
+ * 添加目标
+ */
+router.post('/:username/:type/target', addTarget)
 
 module.exports = router

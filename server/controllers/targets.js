@@ -1,4 +1,4 @@
-const { initUserAndTargets, findTargets } = require('../services/targets')
+const { initUserAndTargets, findTargets, addNewTarget } = require('../services/targets')
 
 module.exports = {
   async addUser(ctx) {
@@ -7,7 +7,7 @@ module.exports = {
       await initUserAndTargets(username)
       ctx.body = {
         success: true,
-        messager: '注册成功',
+        message: '注册成功',
       }
     } catch (err) {
       ctx.body = {
@@ -29,7 +29,29 @@ module.exports = {
     } catch (err) {
       ctx.body = {
         success: false,
-        result: null,
+        message: '获取目标失败',
+      }
+    }
+  },
+
+  async addTarget(ctx) {
+    const { username, type } = ctx.params
+    const { target } = ctx.request.body
+
+    try {
+      await addNewTarget({
+        username,
+        type,
+        target,
+      })
+      ctx.body = {
+        success: true,
+        message: '添加目标成功',
+      }
+    } catch (err) {
+      ctx.body = {
+        success: false,
+        message: '添加目标失败',
       }
     }
   },
