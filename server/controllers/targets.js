@@ -1,9 +1,19 @@
-const { exec, execSync } = require('child_process')
-const { initUserAndTargets, findTargets, addNewTarget } = require('../services/targets')
+const {
+  exec,
+  execSync
+} = require('child_process')
+const {
+  initUserAndTargets,
+  findTargets,
+  addNewTarget,
+  updateOldTarget
+} = require('../services/targets')
 
 module.exports = {
   async addUser(ctx) {
-    const { username } = ctx.request.body
+    const {
+      username
+    } = ctx.request.body
     try {
       await initUserAndTargets(username)
       ctx.body = {
@@ -19,7 +29,9 @@ module.exports = {
   },
 
   async fetchTargets(ctx) {
-    const { username } = ctx.params
+    const {
+      username
+    } = ctx.params
 
     try {
       const targets = await findTargets(username)
@@ -36,8 +48,13 @@ module.exports = {
   },
 
   async addTarget(ctx) {
-    const { username, type } = ctx.params
-    const { target } = ctx.request.body
+    const {
+      username,
+      type
+    } = ctx.params
+    const {
+      target
+    } = ctx.request.body
 
     try {
       await addNewTarget({
@@ -53,6 +70,33 @@ module.exports = {
       ctx.body = {
         success: false,
         message: '添加目标失败',
+      }
+    }
+  },
+
+  async updateTarget(ctx) {
+    const {
+      username,
+      type
+    } = ctx.params
+    const {
+      target
+    } = ctx.request.body
+
+    try {
+      await updateOldTarget({
+        username,
+        type,
+        target,
+      })
+      ctx.body = {
+        success: true,
+        message: '修改目标成功',
+      }
+    } catch (err) {
+      ctx.body = {
+        success: false,
+        message: '修改目标失败',
       }
     }
   },

@@ -1,5 +1,11 @@
 const Router = require('koa-router')
-const { addUser, fetchTargets, addTarget, autoDeploy } = require('../controllers/targets')
+const {
+  addUser,
+  fetchTargets,
+  addTarget,
+  updateTarget,
+  autoDeploy
+} = require('../controllers/targets')
 
 const router = new Router({
   prefix: '/wx/api',
@@ -23,10 +29,7 @@ router.post('/:username/:type/target', addTarget)
 /**
  * 修改目标
  */
-router.put('/:username/:type/target', async ctx => {
-  // TODO
-  ctx.body = 'update successly'
-})
+router.put('/:username/:type/target', updateTarget)
 
 /**
  * 健康检查
